@@ -1,5 +1,5 @@
 <h1>Edit course {{ course.title }}</h1>
-<form method="POST" action="/courses/edit_course">
+<form method="POST" action="/courses/edit_course" class="course-form">
   <div class="row">
     <div class="input-field">
       <input id="title" name="title" type="text" class="validate" value="{{ course.title }}" required>
@@ -21,6 +21,10 @@
       <span class="helper-text" data-error="wrong"></span>
     </div>
   </div>
-  <input id="image" type="hidden" name="id" class="validate" value="{{ course.id }}" required >
-  <button class="btn btn-priimary">Edit course</button>
+  <input id="image" type="hidden" name="id" class="validate" value="{{ course._id }}" required >
+  <button class="btn btn-priimary" type="submit">Edit course</button>
+</form>
+<form action="/courses/remove_course" method="POST">
+  <input type="hidden" name="id" value="{{ course._id }}">
+  <button class="btn red" type="submit">Delete course</button>
 </form>
