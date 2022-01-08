@@ -1,30 +1,33 @@
 <h1>Courses</h1>
 
 {{#if courses.length}}
-{{#each courses}}
-<div class="row">
-  <div class="col s6 offset-s3">
-    <div class="card">
-      <div class="card-image">
-        <img src="{{ image }}" alt="{{ title }}">
-      </div>
-      <div class="card-content">
-        <h3>{{ title }}</h3>
-        <p class="price">{{ price }}</p>
-      </div>
-      <div class="card-action actions">
-        <a href="/courses/{{_id}}" target="_blank">Buy course</a>
-        <a href="/courses/{{_id}}/edit?allow=true">Edit</a>
-        <form action="/card/add" method="POST">
-          <input type="hidden" name="id" value="{{ _id }}">
-          <button class="btn btn-primary">Add to cart</button>
-        </form>
+  {{#each courses}}
+    <div class="row">
+      <div class="col s6 offset-s3">
+        <div class="card">
+          <div class="card-image">
+            <img src="{{ image }}" alt="{{ title }}">
+          </div>
+          <div class="card-content">
+            <h3>{{ title }}</h3>
+            <p class="price">{{ price }}</p>
+          </div>
+          <div class="card-action actions">
+            <a href="/courses/{{_id}}" target="_blank">Open course</a>
+            {{#if @root.isAuth}}
+              <a href="/courses/{{_id}}/edit?allow=true">Edit</a>
+              <form action="/card/add" method="POST">
+                <input type="hidden" name="id" value="{{ _id }}">
+                <input type="hidden" name="_csrf" value="{{@root.csrf}}" />
+                <button class="btn btn-primary">Add to cart</button>
+              </form>
+            {{/if}}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-{{courses}}
-{{/each}}
+    {{courses}}
+  {{/each}}
 {{else}}
-<p>Not found</p>
+  <p>Not found</p>
 {{/if}}
